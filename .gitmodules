@@ -1,0 +1,48 @@
+[submodule "repos/llvm"]
+	path = repos/llvm
+	url = https://github.com/tbfleming/cib-llvm.git
+[submodule "repos/llvm-tools/clang"]
+	path = repos/llvm-tools/clang
+	url = https://github.com/tbfleming/cib-clang.git
+[submodule "repos/llvm-tools/lld"]
+	path = repos/llvm-tools/lld
+	url = https://github.com/tbfleming/cib-lld.git
+[submodule "repos/llvm-projects/compiler-rt"]
+	path = repos/llvm-projects/compiler-rt
+	url = https://github.com/tbfleming/cib-compiler-rt.git
+[submodule "repos/llvm-projects/libcxx"]
+	path = repos/llvm-projects/libcxx
+	url = https://github.com/tbfleming/cib-libcxx.git
+[submodule "repos/llvm-projects/libcxxabi"]
+	path = repos/llvm-projects/libcxxabi
+	url = https://github.com/tbfleming/cib-libcxxabi.git
+[submodule "repos/emscripten"]
+	path = repos/emscripten
+	url = https://github.com/tbfleming/cib-emscripten.git
+[submodule "repos/wabt"]
+	path = repos/wabt
+	url = https://github.com/WebAssembly/wabt.git
+[submodule "repos/binaryen"]
+	path = repos/binaryen
+	url = https://github.com/tbfleming/cib-binaryen.git
+[submodule "repos/zip.js"]
+	path = repos/zip.js
+	url = https://github.com/gildas-lormeau/zip.js.git
+[submodule "repos/eos"]
+	path = repos/eos
+	url = https://github.com/tbfleming/cib-eos.git
+[submodule "repos/eos-musl"]
+	path = repos/eos-musl
+	url = https://github.com/tbfleming/cib-eos-musl.git
+[submodule "repos/eos-libcxx"]
+	path = repos/eos-libcxx
+	url = https://github.com/EOSIO/libcxx.git
+[submodule "repos/magic-get"]
+	path = repos/magic-get
+	url = https://github.com/apolukhin/magic_get.git
+[submodule "repos/eos-altjs"]
+	path = repos/eos-altjs
+	url = https://github.com/tbfleming/eos-altjs
+[submodule "repos/golden-layout"]
+	path = repos/golden-layout
+	url = https://github.com/golden-layout/golden-layout.git
