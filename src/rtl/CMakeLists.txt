@@ -80,15 +80,14 @@ string(REPLACE " " ";" compiler_rt_sources "${compiler_rt_sources}")
 
 file(GLOB libcxx_sources "../../repos/emscripten/system/lib/libcxx/*.cpp")
 set(libcxxabi_sources 
-    abort_message.cpp cxa_aux_runtime.cpp cxa_default_handlers.cpp cxa_demangle.cpp cxa_exception_storage.cpp 
-    cxa_guard.cpp cxa_handlers.cpp cxa_new_delete.cpp exception.cpp private_typeinfo.cpp stdexcept.cpp typeinfo.cpp
+    abort_message.cpp cxa_aux_runtime.cpp cxa_default_handlers.cpp cxa_demangle.cpp cxa_exception_storage.cpp cxa_guard.cpp cxa_handlers.cpp fallback_malloc.cpp stdlib_new_delete.cpp stdlib_exception.cpp stdlib_stdexcept.cpp stdlib_typeinfo.cpp private_typeinfo.cpp
     )
 string(REGEX REPLACE "([^;]+)" "../../repos/emscripten/system/lib/libcxxabi/src/\\1" libcxxabi_sources "${libcxxabi_sources}")
 string(REPLACE " " ";" libcxxabi_sources "${libcxxabi_sources}")
 #message(STATUS "${libcxxabi_sources}")
 
-#set(CMAKE_CXX_LINK_EXECUTABLE "${LLVM_INSTALL}/bin/wasm-ld --allow-undefined --no-entry --import-memory --strip-all --relocatable <OBJECTS> -o <TARGET>")
-set(CMAKE_CXX_LINK_EXECUTABLE "../../build/tools/cib-link <TARGET> <OBJECTS>")
+set(CMAKE_CXX_LINK_EXECUTABLE "${LLVM_INSTALL}/bin/wasm-ld --allow-undefined --no-entry --import-memory --strip-all --relocatable <OBJECTS> -o <TARGET>")
+#set(CMAKE_CXX_LINK_EXECUTABLE "../../build/tools/cib-link <TARGET> <OBJECTS>")
 
 add_executable(rtl ../runtime-replacement.cpp)
 
@@ -104,8 +103,6 @@ function(addSources sources flags)
     endforeach()
 endfunction(addSources)
 
-addSources("${musl_sources}" "-Wno-return-type -Wno-parentheses -Wno-ignored-attributes -Wno-shift-count-overflow -Wno-shift-negative-value -Wno-dangling-else -Wno-unknown-pragmas -Wno-shift-op-parentheses -Wno-string-plus-int -Wno-logical-op-parentheses -Wno-bitwise-op-parentheses -Wno-visibility -Wno-pointer-sign -Wno-absolute-value -Wno-empty-body")
-addSources("${compiler_rt_sources}" "-isystem ../../repos/projects/compiler-rt/lib/")
-addSources("${libcxx_sources}" "-std=c++11 -DLIBCXX_BUILDING_LIBCXXABI=1 -D_LIBCPP_BUILDING_LIBRARY")
-addSources("${libcxxabi_sources}" "-std=c++11")
-addSource(../../repos/emscripten/system/lib/dlmalloc.c "-Wno-tautological-constant-compare")
+foreach(lib libc++-noexcept libc++ libc++abi libc-extras libc-wasm libc libc_rt_wasm libcompiler_rt libcompiler_rt_wasm libdlmalloc)
+    target_link_libraries(rtl "$ENV{HOME}/.emscripten_cache/wasm-obj/${lib}.a")
+endforeach()

@@ -54,12 +54,12 @@ extern "C" bool compile(const char* inputFilename, const char* outputFilename,
     compiler->createDiagnostics();
 
     CompilerInvocation::setLangDefaults(
-        compiler->getLangOpts(), InputKind{InputKind::CXX, InputKind::Source},
+        compiler->getLangOpts(), InputKind{Language::CXX},
         Triple{triple}, compiler->getPreprocessorOpts(),
         LangStandard::lang_cxx2a);
 
     compiler->getFrontendOpts().Inputs.push_back(FrontendInputFile{
-        inputFilename, InputKind{InputKind::CXX, InputKind::Source}});
+        inputFilename, InputKind{Language::CXX}});
     compiler->getFrontendOpts().OutputFile = outputFilename;
 
     auto& sOpts = compiler->getHeaderSearchOpts();
@@ -131,7 +131,7 @@ extern "C" bool compile(const char* inputFilename, const char* outputFilename,
 #endif
 
     compiler->getCodeGenOpts().CodeModel = "default";
-    compiler->getCodeGenOpts().RelocationModel = "static";
+    compiler->getCodeGenOpts().RelocationModel = llvm::Reloc::Model::Static;
     compiler->getCodeGenOpts().ThreadModel = "single";
     compiler->getCodeGenOpts().OptimizationLevel = 2; // -Os
     compiler->getCodeGenOpts().OptimizeSize = 1;      // -Os
@@ -139,7 +139,7 @@ extern "C" bool compile(const char* inputFilename, const char* outputFilename,
     compiler->getLangOpts().OptimizeSize = 1;
 
     compiler->getLangOpts().DollarIdents = false;
-    compiler->getLangOpts().CoroutinesTS = true;
+    compiler->getLangOpts().Coroutines = true;
     compiler->getLangOpts().DoubleSquareBracketAttributes = true;
     compiler->getLangOpts().WCharIsSigned = true;
     compiler->getLangOpts().ConceptsTS = true;

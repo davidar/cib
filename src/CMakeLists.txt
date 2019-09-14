@@ -48,13 +48,14 @@ set(LLVM_LIBRARIES
     clangEdit
     clangAnalysis
     clangAST
+    clangASTMatchers
     clangLex
     clangBasic
+    LLVMWebAssemblyAsmParser
     LLVMWebAssemblyCodeGen
     LLVMWebAssemblyDesc
     LLVMWebAssemblyInfo
     LLVMGlobalISel
-    LLVMWebAssemblyAsmPrinter
     LLVMAsmPrinter
     LLVMDebugInfoCodeView
     LLVMSelectionDAG
@@ -86,6 +87,11 @@ set(LLVM_LIBRARIES
     LLVMBinaryFormat
     LLVMMC
     LLVMSupport
+    LLVMAggressiveInstCombine
+    LLVMBitstreamReader
+    LLVMDebugInfoDWARF
+    LLVMDemangle
+    LLVMRemarks
 )
 
 set(RUNTIME_METHODS
@@ -152,6 +158,7 @@ set(RUNTIME_METHODS
     writeStringToMemory
 )
 string(REGEX REPLACE "([^;]+);*" "\"\\1\"," RUNTIME_METHODS "${RUNTIME_METHODS}")
+string(REGEX REPLACE ",$" "" RUNTIME_METHODS "${RUNTIME_METHODS}")
 
 IF(EMSCRIPTEN)
     # https://gitlab.kitware.com/cmake/cmake/issues/15826
@@ -237,6 +244,9 @@ IF(EMSCRIPTEN)
         #"-s FS_LOG=1"
     )
 
+    target_compile_options(runtime PRIVATE
+        -fPIC
+    )
     target_link_libraries(runtime PRIVATE
         "-s MODULARIZE=1"
         "-s ALLOW_MEMORY_GROWTH=1"

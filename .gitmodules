@@ -18,10 +18,10 @@
 	url = https://github.com/llvm-mirror/libcxxabi.git
 [submodule "repos/emscripten"]
 	path = repos/emscripten
-	url = https://github.com/tbfleming/cib-emscripten.git
+	url = https://github.com/emscripten-core/emscripten.git
 [submodule "repos/binaryen"]
 	path = repos/binaryen
-	url = https://github.com/tbfleming/cib-binaryen.git
+	url = https://github.com/WebAssembly/binaryen.git
 [submodule "repos/zip.js"]
 	path = repos/zip.js
 	url = https://github.com/gildas-lormeau/zip.js.git
